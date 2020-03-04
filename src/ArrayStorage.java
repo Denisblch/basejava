@@ -1,20 +1,29 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
+    private int size;
 
     void clear() {
         for(int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) storage[i] = null;
-            else break;
+            if (storage[i] != null) {
+                storage[i] = null;
+            }
+            else {
+                break;
+            }
         }
+        size = 0;
     }
 
     void save(Resume r) {
         for(int i = 0; i < storage.length; i++) {
             if (storage[i] == null) {
                 storage[i] = r;
+                size++;
                 break;
             }
         }
@@ -22,8 +31,9 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         for(Resume i: storage) {
-            if (i != null && i.uuid.equals(uuid))
+            if (i != null && i.uuid.equals(uuid)) {
                 return i;
+            }
         }
         return null;
     }
@@ -36,9 +46,13 @@ public class ArrayStorage {
                 break;
             }
         }
-        for(int i = count; i < storage.length-1; i++) {
-            storage[i] = storage[i + 1];
-            storage[i + 1] = null;
+        for(int i = count; i < storage.length; i++) {
+            if (i == storage.length-1) {
+                storage[i] = null;
+                size--;
+            } else {
+                storage[i] = storage[i+1];
+            }
         }
     }
 
@@ -46,18 +60,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] news = new Resume[size()];
-        if (news.length >= 0)
-            System.arraycopy(storage, 0, news, 0, news.length);
-        return news;
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
-        int count = 0;
-        for(Resume i :storage) {
-            if (i != null) count++;
-            else break;
-        }
-        return count;
+        return size;
     }
 }
