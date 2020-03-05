@@ -15,17 +15,14 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        for(int i = 0; i < storage.length; i++) {
-            storage[i] = r;
-            size++;
-            break;
-        }
+        storage[size] = r;
+        size++;
     }
 
     Resume get(String uuid) {
-        for(Resume i: storage) {
-            if (i.uuid.equals(uuid)) {
-                return i;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid == uuid) {
+                return storage[i];
             }
         }
         return null;
@@ -40,7 +37,7 @@ public class ArrayStorage {
             }
         }
         for(int i = index; i < size; i++) {
-            if (i == size) {
+            if (i == size - 1) {
                 storage[i] = null;
                 size--;
             } else {
