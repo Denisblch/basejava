@@ -19,6 +19,7 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
+        System.out.println(r);
     }
 
     public void save(Resume r) {
