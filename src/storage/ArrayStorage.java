@@ -22,8 +22,12 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        storage[size] = r;
-        size++;
+        for(int i = 0; i < size; i++) {
+            if(storage[i].getUuid().equals(r.getUuid())) {
+                storage[size] = r;
+                size++;
+            }
+        }
     }
 
     public Resume get(String uuid) {
