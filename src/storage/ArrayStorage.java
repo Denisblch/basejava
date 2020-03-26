@@ -1,40 +1,34 @@
 package storage;
 import com.urise.webapp.model.Resume;
-
 import java.util.Arrays;
 
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[1000];
     private int size;
 
     public void clear() {
-        for(int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size,null);
         size = 0;
     }
 
     public void update(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].equals(r)) {
-                storage[i] = r;
-                System.out.println(r.getUuid() + " updated successfully");
-                return;
-            }
+        if(check(r)){
+            System.out.println("Storage of resume changed successfully");
         }
-        System.out.println("Error, resume not found");
+        else {
+            System.out.println("Error, resume not found");
+        }
     }
 
     public void save(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].equals(r)) {
-                storage[i] = r;
-                System.out.println(r.getUuid() + " overwritten successfully");
-                return;
-            }
+        if(!check(r) && size < storage.length) {
+            storage[size] = r;
+            size++;
+            System.out.println("Resume " + r.getUuid() + " added to storage");
         }
-        storage[size] = r;
-        size++;
+        else{
+            System.out.println("Storage resume is full");
+        }
     }
 
     public Resume get(String uuid) {
@@ -47,20 +41,12 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int index = 0;
         for(int i = 0; i < size; i++) {
             if(storage[i].getUuid().equals(uuid)) {
-                index = i;
-                break;
-            }
-        }
-        for(int i = index; i < size; i++) {
-            if (i == size - 1) {
-                storage[i] = null;
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
                 size--;
-            }
-            else {
-                storage[i] = storage[i+1];
+                System.out.println("Resume deleted");
             }
         }
     }
@@ -71,5 +57,15 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private boolean check(Resume r){
+        for (int i = 0; i < size; i++) {
+            if (storage[i].equals(r)) {
+                storage[i] = r;
+                return true;
+            }
+        }
+        return false;
     }
 }
