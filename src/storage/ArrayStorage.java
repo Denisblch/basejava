@@ -1,12 +1,8 @@
 package storage;
-
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int size;
@@ -19,16 +15,26 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        System.out.println(r);
+        for (int i = 0; i < size; i++) {
+            if (storage[i].equals(r)) {
+                storage[i] = r;
+                System.out.println(r.getUuid() + " updated successfully");
+                return;
+            }
+        }
+        System.out.println("Error, resume not found");
     }
 
     public void save(Resume r) {
-        for(int i = 0; i < size; i++) {
-            if(storage[i].getUuid().equals(r.getUuid())) {
-                storage[size] = r;
-                size++;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].equals(r)) {
+                storage[i] = r;
+                System.out.println(r.getUuid() + " overwritten successfully");
+                return;
             }
         }
+        storage[size] = r;
+        size++;
     }
 
     public Resume get(String uuid) {
@@ -52,7 +58,8 @@ public class ArrayStorage {
             if (i == size - 1) {
                 storage[i] = null;
                 size--;
-            } else {
+            }
+            else {
                 storage[i] = storage[i+1];
             }
         }
