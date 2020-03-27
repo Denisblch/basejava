@@ -14,20 +14,26 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (check(resume)) {
-            System.out.println("Storage of resume changed successfully");
+        if (check(resume.getUuid()) != -1) {
+            storage[check(resume.getUuid())] = resume;
+            System.out.println("Resume updated successfully");
         } else {
             System.out.println("Error, resume not found");
         }
     }
 
     public void save(Resume resume) {
-        if (!check(resume) && size < storage.length) {
-            storage[size] = resume;
-            size++;
-            System.out.println("Resume " + resume.getUuid() + " added to storage");
+        if (check(resume.getUuid()) != -1) {
+            System.out.println("Resume already added");
         } else {
-            System.out.println("Storage resume is full");
+            if (size == storage.length) {
+                System.out.println("Storage resume is full");
+
+            } else {
+                storage[size] = resume;
+                size++;
+                System.out.println("Resume " + resume.getUuid() + " added to storage");
+            }
         }
     }
 
@@ -58,16 +64,6 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean check(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].equals(resume)) {
-                storage[i] = resume;
-                return true;
-            }
-        }
-        return false;
-    }
-
     private int check(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
@@ -77,3 +73,4 @@ public class ArrayStorage {
         return -1;
     }
 }
+
