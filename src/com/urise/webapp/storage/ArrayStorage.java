@@ -14,33 +14,32 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (check(resume.getUuid()) != -1) {
-            storage[check(resume.getUuid())] = resume;
-            System.out.println("Resume updated successfully");
+        int index = check(resume.getUuid());
+        if (index != -1) {
+            storage[index] = resume;
+            System.out.println("Resume " + resume.getUuid() + " updated successfully");
         } else {
-            System.out.println("Error, resume not found");
+            System.out.println("Error, resume " + resume.getUuid() + " not found");
         }
     }
 
     public void save(Resume resume) {
         if (check(resume.getUuid()) != -1) {
-            System.out.println("Resume already added");
+            System.out.println("Resume " + resume.getUuid() + " already added");
+        } else if (size == storage.length) {
+            System.out.println("Storage resume is full");
         } else {
-            if (size == storage.length) {
-                System.out.println("Storage resume is full");
-
-            } else {
-                storage[size] = resume;
-                size++;
-                System.out.println("Resume " + resume.getUuid() + " added to storage");
-            }
+            storage[size] = resume;
+            size++;
         }
     }
 
+
     public Resume get(String uuid) {
-        if (check(uuid) != -1) {
-            System.out.println("Resume is found");
-            return storage[check(uuid)];
+        int index = check(uuid);
+        if (index != -1) {
+            System.out.println("Resume " + uuid + " is found");
+            return storage[index];
         }
         return null;
     }
@@ -53,7 +52,7 @@ public class ArrayStorage {
             System.out.println("Resume " + uuid + " deleted");
             return;
         }
-        System.out.println("Resume is not found");
+        System.out.println("Resume " + uuid + " is not found");
     }
 
     public Resume[] getAll() {
