@@ -1,5 +1,7 @@
+package com.urise.webapp;
+
 import com.urise.webapp.model.Resume;
-import storage.ArrayStorage;
+import com.urise.webapp.storage.ArrayStorage;
 
 /**
  * Test for your ArrayStorage implementation
