@@ -4,9 +4,7 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage {
-    private Resume[] storage = new Resume[1000];
-    private int size;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -34,16 +32,6 @@ public class ArrayStorage {
         }
     }
 
-
-    public Resume get(String uuid) {
-        int index = check(uuid);
-        if (index != -1) {
-            System.out.println("Resume " + uuid + " is found");
-            return storage[index];
-        }
-        return null;
-    }
-
     public void delete(String uuid) {
         if (check(uuid) != -1) {
             storage[check(uuid)] = storage[size - 1];
@@ -59,11 +47,7 @@ public class ArrayStorage {
         return Arrays.copyOf(storage, size);
     }
 
-    public int size() {
-        return size;
-    }
-
-    private int check(String uuid) {
+    protected int check(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
