@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -20,16 +23,16 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[index] = resume;
             System.out.println("Resume " + resume.getUuid() + " updated successfully");
         } else {
-            System.out.println("Error, resume " + resume.getUuid() + " not found");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
-            System.out.println("Resume " + resume.getUuid() + " already added");
+            throw new ExistStorageException(resume.getUuid());
         } else if (size == storage.length) {
-            System.out.println("Storage resume is full");
+            throw new StorageException("Storage of resumes is full", resume.getUuid());
         } else {
             insertElement(resume, index);
             size++;
@@ -45,14 +48,13 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Resume " + uuid + " deleted");
             return;
         }
-        System.out.println("Resume " + uuid + " is not found");
+        throw new NotExistStorageException(uuid);
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
-            System.out.println("Resume " + uuid + " is not found");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
