@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-
     private List<Resume> resumeList = new ArrayList<>();
 
     @Override
@@ -50,8 +49,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return resumeList.toArray(new Resume[resumeList.size()]);
+    public List<Resume> doGetAll() {
+        return new ArrayList<>(resumeList);
     }
 
     @Override
