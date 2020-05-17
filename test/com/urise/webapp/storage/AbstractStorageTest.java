@@ -14,7 +14,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
-    private Storage storage;
+    protected Storage storage;
+
     private static final String UUID_1 = "uuid1";
     private static final Resume resume_1;
     private static final String UUID_2 = "uuid2";
@@ -70,18 +71,6 @@ public abstract class AbstractStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
         storage.save(resume_1);
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveIsFull() {
-        try {
-            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException oe) {
-            Assert.fail("ERROR: Overflow");
-        }
-        storage.save(new Resume());
     }
 
     @Test(expected = NotExistStorageException.class)

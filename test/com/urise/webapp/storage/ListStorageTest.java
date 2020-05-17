@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 public class ListStorageTest extends AbstractStorageTest {
 
-    protected ListStorageTest() {
+    public ListStorageTest() {
         super(new ListStorage());
     }
 }

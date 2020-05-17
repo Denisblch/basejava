@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 public class MapStorageTest extends AbstractStorageTest {
 
-    protected MapStorageTest() {
+    public MapStorageTest() {
         super(new MapStorage());
     }
 }
