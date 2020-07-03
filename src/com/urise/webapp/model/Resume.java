@@ -3,14 +3,16 @@ package com.urise.webapp.model;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
-    private final String uuid;    //Unique identifier
+    private final String uuid;
+    private final String fullName;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
-    public Resume(String uuid) {
+    public Resume(String uuid, String fullName) {
         this.uuid = uuid;
+        this.fullName = fullName;
     }
 
     public String getUuid() {
@@ -23,22 +25,25 @@ public class Resume implements Comparable<Resume> {
         if (o == null || getClass() != o.getClass()) return false;
 
         Resume resume = (Resume) o;
-
-        return uuid.equals(resume.uuid);
+        if (!uuid.equals(resume.uuid)) {
+            return false;
+        }
+        return fullName.equals(resume.fullName);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return fullName.hashCode() + uuid.hashCode() * 31;
     }
 
     @Override
     public String toString() {
-        return uuid;
+        return uuid + '(' + fullName + ')';
     }
 
     @Override
     public int compareTo(Resume resume) {
-        return uuid.compareTo(resume.getUuid());
+        int comp = fullName.compareTo(resume.fullName);
+        return comp != 0 ? comp : uuid.compareTo(resume.getUuid());
     }
 }
