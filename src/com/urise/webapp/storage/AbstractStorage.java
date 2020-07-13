@@ -6,55 +6,64 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<SK> implements Storage {
 
-    abstract void doUpdate(Resume resume, Object searchKey);
+    private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
-    abstract void doSave(Resume resume, Object searchKey);
+    abstract void doUpdate(Resume resume, SK searchKey);
 
-    abstract void doDelete(Object searchKey);
+    abstract void doSave(Resume resume, SK searchKey);
 
-    abstract Resume doGet(Object searchKey);
+    abstract void doDelete(SK searchKey);
 
-    abstract Object getSearchKey(String uuid);
+    abstract Resume doGet(SK searchKey);
 
-    abstract boolean isExist(Object searchKey);
+    abstract SK getSearchKey(String uuid);
+
+    abstract boolean isExist(SK searchKey);
 
     abstract List<Resume> doCopyAll();
 
     public void update(Resume resume) {
-        Object searchKey = getExistedKey(resume.getUuid());
+        LOG.info("Update " + resume);
+        SK searchKey = getExistedKey(resume.getUuid());
         doUpdate(resume, searchKey);
     }
 
     public void save(Resume resume) {
-        Object searchKey = getNotExistedKey(resume.getUuid());
+        LOG.info("Save " + resume);
+        SK searchKey = getNotExistedKey(resume.getUuid());
         doSave(resume, searchKey);
     }
 
     public void delete(String uuid) {
-        Object searchKey = getExistedKey(uuid);
+        LOG.info("Delete " + uuid);
+        SK searchKey = getExistedKey(uuid);
         doDelete(searchKey);
     }
 
     public Resume get(String uuid) {
-        Object searchKey = getExistedKey(uuid);
+        LOG.info("Get " + uuid);
+        SK searchKey = getExistedKey(uuid);
         return doGet(searchKey);
     }
 
 
-    private Object getExistedKey(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK getExistedKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " not exist");
             throw new NotExistStorageException(uuid);
         }
         return searchKey;
     }
 
-    private Object getNotExistedKey(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK getNotExistedKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " already exist");
             throw new ExistStorageException(uuid);
         }
         return searchKey;
@@ -62,6 +71,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
+        LOG.info("getAllSorted");
         List<Resume> list = doCopyAll();
         Collections.sort(list);
         return list;

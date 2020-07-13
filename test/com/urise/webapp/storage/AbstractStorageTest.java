@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
@@ -52,6 +53,7 @@ public abstract class AbstractStorageTest {
     public void update() {
         Resume newResume = new Resume(UUID_3, "Update Name");
         storage.update(newResume);
+        assertTrue(newResume == storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -97,7 +99,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        List<Resume> expectedResumes = Arrays.asList(resume_1, resume_2, resume_3);storage.getAllSorted();
+        List<Resume> expectedResumes = Arrays.asList(resume_1, resume_2, resume_3);
         assertEquals(3, storage.size());
         assertEquals(expectedResumes, storage.getAllSorted());
     }
