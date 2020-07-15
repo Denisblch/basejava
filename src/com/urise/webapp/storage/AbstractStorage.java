@@ -12,19 +12,19 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
-    abstract void doUpdate(Resume resume, SK searchKey);
+    protected abstract void doUpdate(Resume resume, SK searchKey);
 
-    abstract void doSave(Resume resume, SK searchKey);
+    protected abstract void doSave(Resume resume, SK searchKey);
 
-    abstract void doDelete(SK searchKey);
+    protected abstract void doDelete(SK searchKey);
 
-    abstract Resume doGet(SK searchKey);
+    protected abstract Resume doGet(SK searchKey);
 
-    abstract SK getSearchKey(String uuid);
+    protected abstract SK getSearchKey(String uuid);
 
-    abstract boolean isExist(SK searchKey);
+    protected abstract boolean isExist(SK searchKey);
 
-    abstract List<Resume> doCopyAll();
+    protected abstract List<Resume> doCopyAll();
 
     public void update(Resume resume) {
         LOG.info("Update " + resume);
