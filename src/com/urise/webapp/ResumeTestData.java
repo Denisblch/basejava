@@ -23,7 +23,6 @@ public class ResumeTestData {
         r1.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
                         new Organization("Institute", null,
-                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT faculty")),
                         new Organization("Organization2", "http://Organization2.ru")));
         r1.addContact(ContactType.SKYPE, "UserName1");
