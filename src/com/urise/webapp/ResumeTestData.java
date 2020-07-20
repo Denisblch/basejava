@@ -12,8 +12,9 @@ public class ResumeTestData {
 
         r1.addContact(ContactType.MAIL, "address@inbox.ru");
         r1.addContact(ContactType.PHONE, "89001111111");
-        r1.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
+        r1.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
         r1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
+        r1.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
         r1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
         r1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "Python"));
         r1.addSection(SectionType.EXPERIENCE,
