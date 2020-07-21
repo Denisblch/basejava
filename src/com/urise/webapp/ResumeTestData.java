@@ -9,7 +9,10 @@ public class ResumeTestData {
 
     public static void main(String[] args) {
         Resume r1 = new Resume(UUID_1, "Name1");
+        createResumeTest(r1);
+    }
 
+    static void createResume(Resume r1) {
         r1.addContact(ContactType.MAIL, "address@inbox.ru");
         r1.addContact(ContactType.PHONE, "89001111111");
         r1.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
@@ -33,5 +36,9 @@ public class ResumeTestData {
         System.out.println("Sections:\n" + r1.getSection(SectionType.PERSONAL) + "\n" + r1.getSection(SectionType.ACHIEVEMENT)
                 + "\n" + r1.getSection(SectionType.QUALIFICATIONS) + "\n" + r1.getSection(SectionType.EXPERIENCE)
                 + "\n" + r1.getSection(SectionType.EDUCATION));
+    }
+
+    public static void createResumeTest(Resume r1) {
+        createResume(r1);
     }
 }
