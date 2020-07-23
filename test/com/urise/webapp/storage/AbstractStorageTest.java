@@ -24,14 +24,12 @@ public abstract class AbstractStorageTest {
     private static final Resume resume_3;
     private static final String uuid_4 = "uuid4";
     private static final Resume resume_4;
-    private static final ResumeTestData rtd;
 
     static {
         resume_1 = new Resume(uuid_1, "Name1");
         resume_2 = new Resume(uuid_2, "Name2");
         resume_3 = new Resume(uuid_3, "Name3");
         resume_4 = new Resume(uuid_4, "Name4");
-        rtd = new ResumeTestData();
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -48,7 +46,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void createResume() {
-        rtd.createResume(resume_1);
+        ResumeTestData.createResume(resume_1, resume_1.getUuid(), resume_1.getFullName());
     }
 
     @Test

@@ -8,33 +8,34 @@ public class ResumeTestData {
     private static final String uuid_1 = "uuid1";
 
     public static void main(String[] args) {
-        Resume r1 = new Resume(uuid_1, "Name1");
-        createResume(r1);
+        Resume resume = new Resume(uuid_1, "Name1");
+        createResume(resume, resume.getUuid(), resume.getFullName());
     }
 
-    public static void createResume(Resume r1) {
-        r1.addContact(ContactType.MAIL, "address@inbox.ru");
-        r1.addContact(ContactType.PHONE, "89001111111");
-        r1.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
-        r1.addSection(SectionType.PERSONAL, new TextSection("Personal data:"));
-        r1.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
-        r1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
-        r1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "Python"));
-        r1.addSection(SectionType.EXPERIENCE,
+    public static void createResume(Resume resume, String uuid, String fullName) {
+        resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
+        resume.addContact(ContactType.PHONE, "+79001111111");
+        resume.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
+        resume.addSection(SectionType.PERSONAL, new TextSection(fullName + ", " + uuid));
+        resume.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
+        resume.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
+        resume.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "Python"));
+        resume.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(
                         new Organization("Organization1", "http://Organization1.ru",
-                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
-        r1.addSection(SectionType.EDUCATION,
+                                new Organization.Position(2018, Month.SEPTEMBER, 2022, Month.JULY, "position2", "content2"))));
+        resume.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
                         new Organization("Institute", null,
-                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT faculty")),
+                                new Organization.Position(2018, Month.SEPTEMBER, 2022, Month.JULY, "student", "IT faculty")),
                         new Organization("Organization2", "http://Organization2.ru")));
-        r1.addContact(ContactType.SKYPE, "UserName1");
+        resume.addContact(ContactType.SKYPE, fullName);
 
-        System.out.println("Contacts:\n" + r1.getContact(ContactType.MAIL)
-                + "\n" + r1.getContact(ContactType.PHONE) + "\n" + r1.getContact(ContactType.SKYPE) + "\n" + r1.getContact(ContactType.GITHUB) + "\n");
-        System.out.println("Sections:\n" + r1.getSection(SectionType.PERSONAL) + "\n" + r1.getSection(SectionType.ACHIEVEMENT)
-                + "\n" + r1.getSection(SectionType.QUALIFICATIONS) + "\n" + r1.getSection(SectionType.EXPERIENCE)
-                + "\n" + r1.getSection(SectionType.EDUCATION));
+        System.out.println("Contacts:\n" + "Mail: " + resume.getContact(ContactType.MAIL)
+                + "\n" + "Phone: " + resume.getContact(ContactType.PHONE) + "\n" + "Skype: " + resume.getContact(ContactType.SKYPE) + "\n"
+                + resume.getContact(ContactType.GITHUB) + "\n");
+        System.out.println("Sections:\n" + "Personal Data: " + resume.getSection(SectionType.PERSONAL) + "\n" + resume.getSection(SectionType.ACHIEVEMENT)
+                + "\n" + resume.getSection(SectionType.QUALIFICATIONS) + "\n" + resume.getSection(SectionType.EXPERIENCE)
+                + "\n" + resume.getSection(SectionType.EDUCATION));
     }
 }

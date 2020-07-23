@@ -6,11 +6,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
-    private final String uuid;
-    private final String fullName;
+    private String uuid;
+    private String fullName;
 
-    protected final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    protected final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -25,6 +25,14 @@ public class Resume implements Comparable<Resume> {
 
     public String getUuid() {
         return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getContact(ContactType type) {
