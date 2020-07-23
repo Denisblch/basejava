@@ -5,14 +5,9 @@ import com.urise.webapp.model.*;
 import java.time.Month;
 
 public class ResumeTestData {
-    private static final String uuid_1 = "uuid1";
 
-    public static void main(String[] args) {
-        Resume resume = new Resume(uuid_1, "Name1");
-        createResume(resume, resume.getUuid(), resume.getFullName());
-    }
-
-    public static void createResume(Resume resume, String uuid, String fullName) {
+    public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
         resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
         resume.addContact(ContactType.PHONE, "+79001111111");
         resume.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
@@ -37,5 +32,6 @@ public class ResumeTestData {
         System.out.println("Sections:\n" + "Personal Data: " + resume.getSection(SectionType.PERSONAL) + "\n" + resume.getSection(SectionType.ACHIEVEMENT)
                 + "\n" + resume.getSection(SectionType.QUALIFICATIONS) + "\n" + resume.getSection(SectionType.EXPERIENCE)
                 + "\n" + resume.getSection(SectionType.EDUCATION));
+        return resume;
     }
 }

@@ -16,20 +16,21 @@ import static org.junit.Assert.assertSame;
 public abstract class AbstractStorageTest {
     protected Storage storage;
 
-    private static final String uuid_1 = "uuid1";
-    private static final Resume resume_1;
-    private static final String uuid_2 = "uuid2";
-    private static final Resume resume_2;
-    private static final String uuid_3 = "uuid3";
-    private static final Resume resume_3;
-    private static final String uuid_4 = "uuid4";
-    private static final Resume resume_4;
+    private static final String UUID_1 = "uuid1";
+    private static final String UUID_2 = "uuid2";
+    private static final String UUID_3 = "uuid3";
+    private static final String UUID_4 = "uuid4";
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
+
 
     static {
-        resume_1 = new Resume(uuid_1, "Name1");
-        resume_2 = new Resume(uuid_2, "Name2");
-        resume_3 = new Resume(uuid_3, "Name3");
-        resume_4 = new Resume(uuid_4, "Name4");
+        RESUME_1 = ResumeTestData.createResume(UUID_1, "Name1");
+        RESUME_2 = ResumeTestData.createResume(UUID_2, "Name2");
+        RESUME_3 = ResumeTestData.createResume(UUID_3, "Name3");
+        RESUME_4 = ResumeTestData.createResume(UUID_4, "Name4");
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -39,14 +40,14 @@ public abstract class AbstractStorageTest {
     @Before
     public void setUp() {
         storage.clear();
-        storage.save(resume_1);
-        storage.save(resume_2);
-        storage.save(resume_3);
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
     public void createResume() {
-        ResumeTestData.createResume(resume_1, resume_1.getUuid(), resume_1.getFullName());
+        ResumeTestData.createResume(RESUME_1.getUuid(), RESUME_1.getFullName());
     }
 
     @Test
@@ -57,9 +58,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(uuid_1, "New Name");
+        Resume newResume = new Resume(UUID_1, "New Name");
         storage.update(newResume);
-        assertSame(newResume, storage.get(uuid_1));
+        assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -69,33 +70,33 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void save() {
-        storage.save(resume_4);
+        storage.save(RESUME_4);
         assertSize(4);
-        assertGet(resume_4);
+        assertGet(RESUME_4);
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveExist() {
-        storage.save(resume_1);
+        storage.save(RESUME_1);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void delete() {
-        storage.delete(uuid_1);
+        storage.delete(UUID_1);
         assertSize(storage.size());
-        assertGet(resume_1);
+        assertGet(RESUME_1);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete(resume_4.getUuid());
+        storage.delete(RESUME_4.getUuid());
     }
 
     @Test
     public void get() {
-        assertGet(resume_1);
-        assertGet(resume_2);
-        assertGet(resume_3);
+        assertGet(RESUME_1);
+        assertGet(RESUME_2);
+        assertGet(RESUME_3);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -105,7 +106,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAllSorted() {
-        List<Resume> expectedResumes = Arrays.asList(resume_1, resume_2, resume_3);
+        List<Resume> expectedResumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         assertEquals(3, storage.size());
         assertEquals(expectedResumes, storage.getAllSorted());
     }
