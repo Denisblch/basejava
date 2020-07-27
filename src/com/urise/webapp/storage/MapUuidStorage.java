@@ -11,22 +11,22 @@ public class MapUuidStorage extends AbstractStorage<String> {
     private Map<String, Resume> map = new HashMap<>();
 
     @Override
-    void doUpdate(Resume resume, String uuid) {
+    public void doUpdate(Resume resume, String uuid) {
         map.put(uuid, resume);
     }
 
     @Override
-    void doSave(Resume resume, String uuid) {
+    public void doSave(Resume resume, String uuid) {
         map.put(uuid, resume);
     }
 
     @Override
-    void doDelete(String uuid) {
+    public void doDelete(String uuid) {
         map.remove(uuid);
     }
 
     @Override
-    Resume doGet(String uuid) {
+    public Resume doGet(String uuid) {
         return map.get(uuid);
     }
 
@@ -36,12 +36,12 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    boolean isExist(String uuid) {
+    public boolean isExist(String uuid) {
         return map.containsKey(uuid);
     }
 
     @Override
-    List<Resume> doCopyAll() {
+    public List<Resume> doCopyAll() {
         return new ArrayList<>(map.values());
     }
 
