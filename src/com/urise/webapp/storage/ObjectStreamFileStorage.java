@@ -29,21 +29,14 @@ public class ObjectStreamFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+        for (File file : checkCreatedFile()) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
-            throw new StorageException("Directory read error");
-        }
-        return list.length;
+        return checkCreatedFile().length;
     }
 
     @Override
@@ -93,15 +86,20 @@ public class ObjectStreamFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read error");
-        }
+        File[] files = checkCreatedFile();
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
             list.add(doGet(file));
         }
         return list;
+    }
+
+    protected File[] checkCreatedFile() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory read error");
+        }
+        return files;
     }
 
 }
