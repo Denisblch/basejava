@@ -5,6 +5,7 @@ import com.urise.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -95,10 +96,10 @@ public class DataStreamSerializer implements StreamSerializer {
             case EDUCATION:
                 size = dis.readInt();
                 List<Organization> org = new ArrayList<>(size);
-                for (int i = 0; i < size; i++) {
-                    new Organization(dis.readUTF(), dis.readUTF(), new Organization.Position(readLocalDate(dis),
-                            readLocalDate(dis), dis.readUTF(), dis.readUTF()));
-                }
+                //for (int i = 0; i < size; i++) {
+                org = Collections.singletonList(new Organization(dis.readUTF(), dis.readUTF(), new Organization.Position(readLocalDate(dis),
+                        readLocalDate(dis), dis.readUTF(), dis.readUTF())));
+               // }
                 return new OrganizationSection(org);
             default:
                 throw new IllegalStateException("Unexpected value: " + sectionType);
