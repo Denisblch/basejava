@@ -47,6 +47,7 @@ public class MainConcurrency {
 
         System.out.println(counter);
         deadLock(ACC1, ACC2);
+        deadLock(ACC2, ACC1);
     }
 
     private synchronized void inc() {
@@ -71,7 +72,7 @@ public class MainConcurrency {
                 System.out.println("Execution: ");
                 transfer12(obj1, obj2);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
