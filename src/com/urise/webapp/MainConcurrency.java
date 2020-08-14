@@ -32,6 +32,7 @@ public class MainConcurrency {
         MainConcurrency mainConcurrency = new MainConcurrency();
         CountDownLatch latch = new CountDownLatch(THREADS_NUMBER);
         ExecutorService executorService = Executors.newCachedThreadPool();
+
 //        CompletionService completionService = new ExecutorCompletionService(executorService);
 //        List<Thread> threads = new ArrayList<>(THREADS_NUMBER);
 
