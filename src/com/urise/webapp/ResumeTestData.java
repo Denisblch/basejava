@@ -8,7 +8,7 @@ public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-        resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
+        /*resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
         resume.addContact(ContactType.PHONE, "+79001111111");
         resume.addContact(ContactType.SKYPE, fullName);
         resume.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
@@ -32,7 +32,7 @@ public class ResumeTestData {
                 + resume.getContact(ContactType.GITHUB) + "\n");
         System.out.println("Sections:\n" + "Personal Data: " + resume.getSection(SectionType.PERSONAL) + "\n" + resume.getSection(SectionType.ACHIEVEMENT)
                 + "\n" + resume.getSection(SectionType.QUALIFICATIONS) + "\n" + resume.getSection(SectionType.EXPERIENCE)
-                + "\n" + resume.getSection(SectionType.EDUCATION));
+                + "\n" + resume.getSection(SectionType.EDUCATION));*/
 
         return resume;
     }

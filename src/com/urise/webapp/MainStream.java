@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class MainStream {
 
     public static void main(String[] args) {
-        List<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        List<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
         int[] values = new int[]{9, 9, 8, 9, 9, 1, 9};
         System.out.println(minValue(values));
         System.out.println(oddOrEven(array));
@@ -26,12 +26,6 @@ public class MainStream {
      */
     public static List<Integer> oddOrEven(List<Integer> integers) {
         int count = integers.stream().mapToInt((Int) -> Integer.parseInt(String.valueOf(Int))).sum();
-        return integers.stream().filter(x -> {
-            if (count % 2 == 0) {
-                return x % 2 != 0;
-            } else {
-                return x % 2 == 0;
-            }
-        }).collect(Collectors.toList());
+        return integers.stream().filter(x -> count % 2 != x % 2).collect(Collectors.toList());
     }
 }
