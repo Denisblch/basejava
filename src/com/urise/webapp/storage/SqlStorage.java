@@ -17,7 +17,7 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        sqlHelper.execution("DELETE FROM resume", PreparedStatement::execute);
+        sqlHelper.execution("DELETE FROM resume");
     }
 
     @Override
