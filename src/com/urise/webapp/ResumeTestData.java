@@ -2,12 +2,9 @@ package com.urise.webapp;
 
 import com.urise.webapp.model.*;
 
-import java.time.Month;
-
 public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
-        Resume resume = new Resume(uuid, fullName);
         /*resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
         resume.addContact(ContactType.PHONE, "+79001111111");
         resume.addContact(ContactType.SKYPE, fullName);
@@ -34,6 +31,6 @@ public class ResumeTestData {
                 + "\n" + resume.getSection(SectionType.QUALIFICATIONS) + "\n" + resume.getSection(SectionType.EXPERIENCE)
                 + "\n" + resume.getSection(SectionType.EDUCATION));*/
 
-        return resume;
+        return new Resume(uuid, fullName);
     }
 }
