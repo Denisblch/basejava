@@ -5,11 +5,12 @@ import com.urise.webapp.model.*;
 public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
-        /*resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
+        Resume resume = new Resume(uuid, fullName);
+        resume.addContact(ContactType.MAIL, fullName + "@inbox.ru");
         resume.addContact(ContactType.PHONE, "+79001111111");
         resume.addContact(ContactType.SKYPE, fullName);
         resume.addContact(ContactType.GITHUB, "https://github.com/Denisblch/basejava");
-        resume.addSection(SectionType.PERSONAL, new TextSection(fullName + ", " + uuid));
+        /*resume.addSection(SectionType.PERSONAL, new TextSection(fullName + ", " + uuid));
         resume.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
         resume.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2", "Achievement3"));
         resume.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "Python"));
@@ -31,6 +32,6 @@ public class ResumeTestData {
                 + "\n" + resume.getSection(SectionType.QUALIFICATIONS) + "\n" + resume.getSection(SectionType.EXPERIENCE)
                 + "\n" + resume.getSection(SectionType.EDUCATION));*/
 
-        return new Resume(uuid, fullName);
+        return resume;
     }
 }
