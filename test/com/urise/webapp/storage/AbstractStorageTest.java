@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.Config;
-import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.ContactType;
@@ -12,30 +11,14 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
+import static com.urise.webapp.storage.TestData.*;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.getInstance().getStorageDir();
 
     protected Storage storage;
-
-    private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_2 = UUID.randomUUID().toString();
-    private static final String UUID_3 = UUID.randomUUID().toString();
-    private static final String UUID_4 = UUID.randomUUID().toString();
-    private static final Resume RESUME_1;
-    private static final Resume RESUME_2;
-    private static final Resume RESUME_3;
-    private static final Resume RESUME_4;
-
-    static {
-        RESUME_1 = ResumeTestData.createResume(UUID_1, "Name1");
-        RESUME_2 = ResumeTestData.createResume(UUID_2, "Name2");
-        RESUME_3 = ResumeTestData.createResume(UUID_3, "Name3");
-        RESUME_4 = ResumeTestData.createResume(UUID_4, "Name4");
-    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -50,11 +33,6 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void createResume() {
-        ResumeTestData.createResume(RESUME_1.getUuid(), RESUME_1.getFullName());
-    }
-
-    @Test
     public void clear() {
         storage.clear();
         assertSize(0);
@@ -63,9 +41,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume newResume = new Resume(UUID_1, "New Name");
-        RESUME_1.addContact(ContactType.MAIL, "NewName@mail.ru");
-        RESUME_1.addContact(ContactType.PHONE, "+795110201");
-        RESUME_1.addContact(ContactType.SKYPE, "newUser123");
+        RESUME_1.setContact(ContactType.MAIL, "NewName@mail.ru");
+        RESUME_1.setContact(ContactType.PHONE, "+795110201");
+        RESUME_1.setContact(ContactType.SKYPE, "newUser123");
         storage.update(newResume);
         assertEquals(newResume, storage.get(UUID_1));
     }
